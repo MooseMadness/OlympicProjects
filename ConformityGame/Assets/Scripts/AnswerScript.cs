@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class AnswerScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Vector3 laidPosition;
+    public Vector3 laidScale;
     public Sprite highlightSprite;
     public string answeName;
 
@@ -15,6 +16,7 @@ public class AnswerScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private Collider2D myColl;
     private SpriteRenderer sRender;
     private Sprite normalSprite;
+    private int normalRenderOrder;
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class AnswerScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         myColl = GetComponent<Collider2D>();
         sRender = GetComponent<SpriteRenderer>();
         normalSprite = sRender.sprite;
+        normalRenderOrder = sRender.sortingOrder;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -48,7 +51,7 @@ public class AnswerScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
             myColl.enabled = true;
             transform.position = startPosition;
             SetHighltight(false);
-            sRender.sortingOrder = 0;
+            sRender.sortingOrder = normalRenderOrder;
         }
     }
 
@@ -56,6 +59,7 @@ public class AnswerScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         isLaid = true;
         transform.position = laidPosition;
+        transform.localScale = laidScale;
         enabled = false;
         SetHighltight(false);
         sRender.sortingOrder = -1;
