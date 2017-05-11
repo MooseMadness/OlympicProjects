@@ -7,6 +7,7 @@ public class HealthScript : MonoBehaviour
     public int maxHealt;
     public LayerMask damageLayers;
     public UnityEvent onDeath;
+    public UnityEvent onDamage;
 
     private SpriteRenderer sRender;
     private int currHealth;
@@ -30,6 +31,7 @@ public class HealthScript : MonoBehaviour
     {
         if(currHealth > 0)
         {
+            onDamage.Invoke();
             currHealth -= amount;
             if(currHealth <= 0)
             {

@@ -1,18 +1,27 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Animator), typeof(SpriteRenderer), typeof(AudioSource))]
 public class CannonScript : MonoBehaviour
 {
     public ProjectileScript projectilePrefab;
     public Vector3 projectileOffset;
     public float xMax;
     public float xMin;
-    public float fireDelay;
 
-    private float timer;
+    private Animator animControll;
+    private bool canFire = true;
+    private int fireTriggerHash;
+    private SpriteRenderer sRender;
+    private Sprite normalSprite;
+    private AudioSource audioSource;
 
     private void Start()
     {
-        timer = fireDelay;
+        animControll = GetComponent<Animator>();
+        fireTriggerHash = Animator.StringToHash("Fire");
+        sRender = GetComponent<SpriteRenderer>();
+        normalSprite = sRender.sprite;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -21,12 +30,9 @@ public class CannonScript : MonoBehaviour
         Vector3 newPos = transform.position;
         newPos.x = Mathf.Clamp(mouseWorldPos.x, xMin, xMax);
         transform.position = newPos;
-
-        timer += Time.deltaTime;
-        if(timer >= fireDelay && Input.GetButton("Fire1"))
+        if(canFire && Input.GetButton("Fire1"))
         {
             Fire();
-            timer = 0f;
         }
     }
 
@@ -42,7 +48,16 @@ public class CannonScript : MonoBehaviour
 
     private void Fire()
     {
+        canFire = false;
         ProjectileScript projectile = Instantiate(projectilePrefab);
         projectile.transform.position = transform.position + projectileOffset;
+        animControll.SetTrigger(fireTriggerHash);
+        audioSource.PlayOneShot(audioSource.clip);
+    }
+
+    public void OnEndFireAnime()
+    {
+        canFire = true;
+        sRender.sprite = normalSprite;
     }
 }

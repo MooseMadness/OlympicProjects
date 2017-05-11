@@ -4,7 +4,6 @@ public class EnemySquadScript : MonoBehaviour
 {
     public float xSpeed;
     public float ySpeed;
-    public HealthScript[] squad;
 
     public float xMin;
     public float xMax;
@@ -34,15 +33,6 @@ public class EnemySquadScript : MonoBehaviour
 
     private void Flip()
     {
-        foreach(HealthScript soldier in squad)
-        {
-            if (soldier != null)
-            {
-                Vector3 newScale = soldier.transform.localScale;
-                newScale.x *= -1;
-                soldier.transform.localScale = newScale;
-            }
-        }
         target = target.x == xMin ? new Vector3(xMax, transform.position.y, 0) : new Vector3(xMin, transform.position.y, 0);
     }
 
