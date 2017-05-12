@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ShipScene.unity
+- path: Assets/Scenes/GroundScene.unity
   isLoaded: 1
   isActive: 1
