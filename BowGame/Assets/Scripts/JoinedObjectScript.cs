@@ -1,58 +1,70 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-[RequireComponent(typeof(DistanceJoint2D), typeof(LineRenderer))]
-public class JoinedObjectScript : PushableScript
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+public class JoinedObjectScript : ObstacleScript
 {
-    public float ropeLineYOffset;
-    public Collider2D ropeCollider;
+    public int damageAmount;
 
-    private DistanceJoint2D joint;
-    private LineRenderer ropeLine;
+    private Rigidbody2D rb;
+    private List<ArrowScript> arrows = new List<ArrowScript>();
+    private Collider2D myColl;
+    private Animator animController;
+    private int deadTrigerHash;
+    private bool isFalled = false;
 
     protected override void Start()
     {
         base.Start();
-        joint = GetComponent<DistanceJoint2D>();
-        ropeLine = GetComponent<LineRenderer>();
-        Vector3 dir = (joint.connectedBody.transform.position - transform.position).normalized;
-        Vector3 ropeStartPos = transform.position + dir * ropeLineYOffset;
-        SetRopeLine(ropeStartPos, joint.connectedBody.transform.position);
+        rb = GetComponent<Rigidbody2D>();
+        myColl = GetComponent<Collider2D>();
+        animController = GetComponent<Animator>();
+        deadTrigerHash = Animator.StringToHash("Dead");
     }
 
     protected override void InteractWithArrow(ArrowScript arrow, bool isTrigger)
     {
         if(arrow.isShooting)
         {
-            if (isTrigger)
-            {
-                joint.enabled = false;
-                rb.freezeRotation = false;
-                ropeLine.enabled = false;
-                ropeCollider.enabled = false;
-            }
-            else
-            {
-                base.InteractWithArrow(arrow, isTrigger);
-            }
+            AttachArrow(arrow);
         }
     }
 
-    private void FixedUpdate()
+    protected override void OnTriggerEnter2D(Collider2D coll)
     {
-        if(joint.enabled)
+        base.OnTriggerEnter2D(coll);
+        if (rb.velocity.sqrMagnitude > float.Epsilon)
         {
-            Vector3 dir = (joint.connectedBody.transform.position - transform.position).normalized;
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, dir);
-            Vector3 ropeStartPos = transform.position + dir * ropeLineYOffset;
-            SetRopeLine(ropeStartPos, joint.connectedBody.transform.position);
+            EnemyScript enemy = coll.GetComponent<EnemyScript>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damageAmount);
+                rb.isKinematic = true;
+                rb.velocity = Vector2.zero;
+                myColl.enabled = false;
+                enabled = false;
+                animController.SetTrigger(deadTrigerHash);
+                foreach(ArrowScript arrow in arrows)
+                {
+                    arrow.DestroyArrow();
+                }
+            }
         }
     }
 
-    private void SetRopeLine(Vector3 start, Vector3 end)
+    protected void AttachArrow(ArrowScript arrow)
     {
-        start.z = -1;
-        end.z = -1;
-        ropeLine.SetPosition(0, start);
-        ropeLine.SetPosition(1, end);
+        arrow.Stop();
+        arrow.transform.SetParent(transform);
+        arrows.Add(arrow);
+    }
+
+    public void Fall()
+    {
+        if (!isFalled)
+        {
+            isFalled = true;
+            rb.isKinematic = false;
+        }
     }
 }

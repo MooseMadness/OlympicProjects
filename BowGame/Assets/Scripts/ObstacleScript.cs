@@ -2,6 +2,7 @@
 {
     protected override void InteractWithArrow(ArrowScript arrow, bool isTrigger)
     {
-        arrow.Stop();        
+        arrow.Stop();
+        GameMangerScript.instance.OnLoseArrow();      
     }
 }

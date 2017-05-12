@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
 public class EnemyScript : ArrowTargetScript
 {
     public int maxHealth;
+    public UnityEvent onDeath;
 
-    private Animator animController;
     private int deadTriggerHash;
     private int currHealth;
     private SpriteRenderer sRender;
+
+    protected Animator animController;
 
     protected override void Start()
     {
@@ -49,7 +52,15 @@ public class EnemyScript : ArrowTargetScript
             enabled = false;
             currHealth = 0;
             SetSpriteColor();
+            animController.applyRootMotion = false;
             animController.SetTrigger(deadTriggerHash);
+            GameObject animParent = new GameObject("animParent");
+            animParent.transform.position = transform.position;
+            animParent.transform.localScale = transform.localScale;
+            animParent.transform.SetParent(transform.parent);
+            transform.SetParent(animParent.transform);
+            gameObject.layer = 0;
+            onDeath.Invoke();
         }
     }
 }

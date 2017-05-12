@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
 public class ExplosionObjectScript : ArrowTargetScript
@@ -7,6 +8,7 @@ public class ExplosionObjectScript : ArrowTargetScript
     public float radius;
     public int damageAmount;
     public LayerMask damageableObjects;
+    public UnityEvent onExplosion;
 
     private Animator animController;
     private int deadTriggerHash;
@@ -23,6 +25,7 @@ public class ExplosionObjectScript : ArrowTargetScript
         if(arrow.isShooting)
         {
             Boom();
+            arrow.DestroyArrow();
         }
     }
 
@@ -36,6 +39,7 @@ public class ExplosionObjectScript : ArrowTargetScript
             enemy.TakeDamage(damageAmount);
         }
         Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        onExplosion.Invoke();
         Destroy(gameObject);
     }
 

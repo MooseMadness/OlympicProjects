@@ -65,8 +65,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArrowScript.cs" />
     <Compile Include="Assets\Scripts\ArrowTargetScript.cs" />
+    <Compile Include="Assets\Scripts\BossScript.cs" />
+    <Compile Include="Assets\Scripts\BoundaryScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\ExplosionObjectScript.cs" />
+    <Compile Include="Assets\Scripts\GameMangerScript.cs" />
     <Compile Include="Assets\Scripts\JoinedObjectScript.cs" />
     <Compile Include="Assets\Scripts\KozakDragScript.cs" />
     <Compile Include="Assets\Scripts\MoveableEnemyScript.cs" />
@@ -74,6 +77,8 @@
     <Compile Include="Assets\Scripts\PushableScript.cs" />
     <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
     <Compile Include="Assets\Scripts\SelfDestroyScript.cs" />
+    <Compile Include="Assets\Scripts\SelfFallJOScript.cs" />
+    <Compile Include="Assets\Scripts\WarriorLvlManagerScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
