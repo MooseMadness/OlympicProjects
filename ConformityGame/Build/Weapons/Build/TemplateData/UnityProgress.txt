@@ -1,0 +1,16 @@
+﻿function UnityProgress (dom) 
+{
+	
+	this.SetProgress = function (progress) { }
+
+	
+	this.SetMessage = function (message) { }
+
+	
+	this.Clear = function() {
+
+		//код, который прячет гифку
+
+	}
+
+}

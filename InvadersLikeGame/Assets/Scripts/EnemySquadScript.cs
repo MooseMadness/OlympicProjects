@@ -33,7 +33,7 @@ public class EnemySquadScript : MonoBehaviour
 
     private void Flip()
     {
-        target = target.x == xMin ? new Vector3(xMax, transform.position.y, 0) : new Vector3(xMin, transform.position.y, 0);
+        target.x = target.x == xMin ? xMax : xMin;
     }
 
     private void OnDrawGizmos()

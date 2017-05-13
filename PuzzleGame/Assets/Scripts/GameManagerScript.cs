@@ -14,6 +14,8 @@ public class GameManagerScript : MonoBehaviour
 
     public static GameManagerScript instance;
 
+    private static bool isGameEnd = false;
+
     private float timer = 0;
     private float prevSubTime;
 
@@ -53,7 +55,10 @@ public class GameManagerScript : MonoBehaviour
 
     private void GameOver()
     {
-        string jsCode = @"var token = sessionStorage.access_token;
+        if (!isGameEnd)
+        {
+            isGameEnd = true;
+            string jsCode = @"var token = sessionStorage.access_token;
                         var xmlhttp = new XMLHttpRequest(); 
                         xmlhttp.open('POST', 'https://api.sagaidachniepath.xyz/quests/checkpoint');
                         xmlhttp.setRequestHeader('Content-Type', 'application/json');
@@ -66,8 +71,9 @@ public class GameManagerScript : MonoBehaviour
                             }
                         };
                         xmlhttp.send(JSON.stringify({ points: '" + score + "', elapsedTime: '" + timer * 1000 + "' }));";
-        Application.ExternalEval(jsCode);
-        SceneManager.LoadScene("Scenes/WaitScene");
+            Application.ExternalEval(jsCode);
+            SceneManager.LoadScene("Scenes/WaitScene");
+        }
     }
 
     public void OnPieceConnected()

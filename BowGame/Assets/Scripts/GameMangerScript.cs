@@ -56,7 +56,7 @@ public class GameMangerScript : MonoBehaviour
                         xmlhttp.onreadystatechange = function() {
                             if (xmlhttp.readyState == 4) {
                                 if(xmlhttp.status == 204) {
-                                    window.location = 'https://sagaidachniepath.xyz/quest';
+                                    window.location = 'https://sagaidachniepath.xyz/congratulations';
                                 } 
                             }
                         };

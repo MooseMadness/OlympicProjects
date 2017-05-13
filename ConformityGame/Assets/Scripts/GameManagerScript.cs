@@ -13,6 +13,8 @@ public class GameManagerScript : MonoBehaviour
     public int questionCount;
     public int wrongAswerCost;
 
+    private static bool isGameEnd = false;
+
     private float timer = 0;
 
     private void Awake()
@@ -46,7 +48,10 @@ public class GameManagerScript : MonoBehaviour
 
     public void GameOver()
     {
-        string jsCode = @"var token = sessionStorage.access_token;
+        if (!isGameEnd)
+        {
+            isGameEnd = true;
+            string jsCode = @"var token = sessionStorage.access_token;
                         var xmlhttp = new XMLHttpRequest(); 
                         xmlhttp.open('POST', 'https://api.sagaidachniepath.xyz/quests/checkpoint');
                         xmlhttp.setRequestHeader('Content-Type', 'application/json');
@@ -54,12 +59,13 @@ public class GameManagerScript : MonoBehaviour
                         xmlhttp.onreadystatechange = function() {
                             if (xmlhttp.readyState == 4) {
                                 if(xmlhttp.status == 204) {
-                                    window.location = 'https://sagaidachniepath.xyz/quest';
+                                    window.location = 'https://sagaidachniepath.xyz/congratulations';
                                 } 
                             }
                         };
                         xmlhttp.send(JSON.stringify({ points: '" + score + "', elapsedTime: '" + timer * 1000 + "' }));";
-        Application.ExternalEval(jsCode);
-        SceneManager.LoadScene("Scenes/WaitScene");
+            Application.ExternalEval(jsCode);
+            SceneManager.LoadScene("Scenes/WaitScene");
+        }
     }
 }

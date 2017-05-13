@@ -9,11 +9,11 @@ public class PuzzleConnectionScript : MonoBehaviour
     public SinglePuzzleScript myPuzzle;
     [HideInInspector]
     public int connIndex; 
-    [HideInInspector]
+    //[HideInInspector]
     public bool isConnected;
 
     public Collider2D pointCollider { private set; get; }
-    public bool canConnect { private set; get; }
+    public bool canConnect;// { private set; get; }
     
     private void Start()
     {

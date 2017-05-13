@@ -4,7 +4,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
 public class HealthScript : MonoBehaviour
 {
-    public int maxHealt;
+    public int maxHealth;
     public LayerMask damageLayers;
     public UnityEvent onDeath;
     public UnityEvent onDamage;
@@ -14,14 +14,14 @@ public class HealthScript : MonoBehaviour
 
     private void Start()
     {
-        currHealth = maxHealt;
+        currHealth = maxHealth;
         sRender = GetComponent<SpriteRenderer>();
     }
 
     private void SetSpriteColor()
     {
         Color newColor = sRender.color;
-        float healthPercent = (float)currHealth / maxHealt;
+        float healthPercent = (float)currHealth / maxHealth;
         newColor.b = healthPercent;
         newColor.g = healthPercent;
         sRender.color = newColor; 

@@ -52,7 +52,8 @@ public class CannonScript : MonoBehaviour
         ProjectileScript projectile = Instantiate(projectilePrefab);
         projectile.transform.position = transform.position + projectileOffset;
         animControll.SetTrigger(fireTriggerHash);
-        audioSource.PlayOneShot(audioSource.clip);
+        if(audioSource.enabled)
+            audioSource.PlayOneShot(audioSource.clip);
     }
 
     public void OnEndFireAnime()

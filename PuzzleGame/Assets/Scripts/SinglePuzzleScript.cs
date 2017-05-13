@@ -99,13 +99,12 @@ public class SinglePuzzleScript : MonoBehaviour, IDragHandler, IBeginDragHandler
                 }
             }
         }
-
-        connPieceTransform.DetachChildren();
+        
         PuzzleRenderOrderScript.instance.RemovePiece(connPiece);
-        Destroy(connPieceTransform.gameObject);
-        GameManagerScript.instance.OnPieceConnected();
 
         foreach (SinglePuzzleScript puzzle in connectedPuzzles)
             puzzle.transform.SetParent(transform.parent);
+        Destroy(connPieceTransform.gameObject);
+        GameManagerScript.instance.OnPieceConnected();
     }
 }
