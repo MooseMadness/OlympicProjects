@@ -69,7 +69,6 @@
     <Compile Include="Assets\Scripts\BoundaryScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\ExplosionObjectScript.cs" />
-    <Compile Include="Assets\Scripts\FullscreenScript.cs" />
     <Compile Include="Assets\Scripts\GameMangerScript.cs" />
     <Compile Include="Assets\Scripts\JoinedObjectScript.cs" />
     <Compile Include="Assets\Scripts\KozakDragScript.cs" />

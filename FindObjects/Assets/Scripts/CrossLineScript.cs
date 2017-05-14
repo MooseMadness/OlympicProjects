@@ -2,19 +2,16 @@
 using UnityEngine.UI;
 using System.Collections;
 
-[RequireComponent(typeof(Image))]
 public class CrossLineScript : MonoBehaviour
 {
     public float crossSpeed;
-
-    private Image crossImg;
+    
     private bool isCrossing = false;
     private RectTransform rTransform;
     private RectTransform pRTransform;
 
     private void Awake()
     {
-        crossImg = GetComponent<Image>();
         rTransform = GetComponent<RectTransform>();
         pRTransform = transform.parent.GetComponent<RectTransform>();
     }

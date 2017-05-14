@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\FullscreenScript.cs" />
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\PuzzleConnectionScript.cs" />
     <Compile Include="Assets\Scripts\PuzzlePieceScript.cs" />

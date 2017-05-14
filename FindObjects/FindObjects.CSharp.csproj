@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CrossLineScript.cs" />
-    <Compile Include="Assets\Scripts\FullscreenScript.cs" />
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\PictureScript.cs" />
     <Compile Include="Assets\Scripts\QuestScript.cs" />

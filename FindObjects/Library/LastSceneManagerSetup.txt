@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/SeaBatlleScene.unity
+- path: Assets/Scenes/SeagullScene.unity
   isLoaded: 1
   isActive: 1

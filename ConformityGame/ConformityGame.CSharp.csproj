@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AnswerScript.cs" />
-    <Compile Include="Assets\Scripts\FullscreenScript.cs" />
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\QuestionScript.cs" />
   </ItemGroup>
