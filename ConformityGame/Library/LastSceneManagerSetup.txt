@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ShipsScene.unity
+- path: Assets/Scenes/GetmanstvoScene.unity
   isLoaded: 1
   isActive: 1
