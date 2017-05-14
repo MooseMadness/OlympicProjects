@@ -15,14 +15,17 @@ public class PuzzlePieceScript : MonoBehaviour
 
     public void OnDragOver()
     {
-        bool needReorganize = false;
         foreach(SinglePuzzleScript puzzle in puzzles)
         {
-            if (puzzle.CheckPuzzle())
-                needReorganize = true;
+            foreach (PuzzleConnectionScript conn in puzzle.puzzleConnections)
+            {
+                if (conn != null && !conn.isConnected && conn.canConnect)
+                {
+                    ConnectPiece(conn);
+                    break;
+                }
+            }
         }
-        if (needReorganize)
-            ReorganizeChildrens();
         PuzzleRenderOrderScript.instance.StopDrag(this);
     }
 
@@ -34,6 +37,35 @@ public class PuzzlePieceScript : MonoBehaviour
             puzzles[i] = transform.GetChild(i).GetComponent<SinglePuzzleScript>();
             puzzles[i].currPiece = this;
         }
+    }
+
+    private void ConnectPiece(PuzzleConnectionScript conn)
+    {
+        PuzzlePieceScript conPiece = conn.pointToConnet.myPuzzle.currPiece;
+
+        Transform connPieceTransform = conPiece.transform;
+        SinglePuzzleScript conPuzzle = conn.myPuzzle;
+        connPieceTransform.position += conPuzzle.transform.position - conn.pointToConnet.myPuzzle.transform.position + conPuzzle.offsets[conn.connIndex];
+
+        SinglePuzzleScript[] connectedPuzzles = conPiece.puzzles;
+        foreach(SinglePuzzleScript puzzle in connectedPuzzles)
+        {
+            puzzle.transform.SetParent(transform);
+            foreach (PuzzleConnectionScript puzzleCon in puzzle.puzzleConnections)
+            {
+                if (puzzleCon != null && !puzzleCon.isConnected && puzzleCon.pointToConnet.myPuzzle.currPiece == this)
+                {
+                    puzzleCon.isConnected = true;
+                    puzzleCon.pointCollider.enabled = false;
+                    puzzleCon.pointToConnet.isConnected = true;
+                    puzzleCon.pointCollider.enabled = false;
+                }
+            }
+        }
+        GameManagerScript.instance.OnPieceConnected();
+        ReorganizeChildrens();
+        PuzzleRenderOrderScript.instance.RemovePiece(conPiece);
+        Destroy(conPiece.gameObject);
     }
 
     public void SetPuzzlesRenderOrder(int order)

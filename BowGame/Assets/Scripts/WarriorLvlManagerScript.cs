@@ -8,5 +8,7 @@ public class WarriorLvlManagerScript : MonoBehaviour
     public void OnExplosion()
     {
         warriorScript.leftTarget.position = warriorLeftTargetAE;
+        if (warriorScript.transform.position.x <= warriorLeftTargetAE.x)
+            warriorScript.ChangeTarget();
     }
 }

@@ -6,12 +6,13 @@ public class JoinedObjectScript : ObstacleScript
 {
     public int damageAmount;
 
+    protected bool isFalled = false;
+
     private Rigidbody2D rb;
     private List<ArrowScript> arrows = new List<ArrowScript>();
     private Collider2D myColl;
     private Animator animController;
     private int deadTrigerHash;
-    private bool isFalled = false;
 
     protected override void Start()
     {
@@ -27,6 +28,7 @@ public class JoinedObjectScript : ObstacleScript
         if(arrow.isShooting)
         {
             AttachArrow(arrow);
+            GameMangerScript.instance.OnLoseArrow();
         }
     }
 

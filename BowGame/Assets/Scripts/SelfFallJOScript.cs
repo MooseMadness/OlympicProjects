@@ -5,7 +5,14 @@
         if(arrow.isShooting)
         {
             AttachArrow(arrow);
-            Fall();
+            if (isFalled)
+            {
+                GameMangerScript.instance.OnLoseArrow();
+            }
+            else
+            {
+                Fall();
+            }
         }
     }
 }

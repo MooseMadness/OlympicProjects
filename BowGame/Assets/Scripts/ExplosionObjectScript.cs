@@ -34,7 +34,6 @@ public class ExplosionObjectScript : ArrowTargetScript
         Collider2D[] enemiesColliders = Physics2D.OverlapCircleAll(transform.position, radius, damageableObjects);
         foreach(Collider2D enemyCollider in enemiesColliders)
         {
-            Debug.Log(enemyCollider.gameObject.name);
             EnemyScript enemy = enemyCollider.GetComponent<EnemyScript>();
             enemy.TakeDamage(damageAmount);
         }

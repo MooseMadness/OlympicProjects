@@ -55,56 +55,5 @@ public class SinglePuzzleScript : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         currPiece.OnDragOver();
-    }
-
-    public System.Collections.IEnumerable GetConnected()
-    {
-        foreach(PuzzleConnectionScript conn in puzzleConnections)
-        {
-            if(conn != null && !conn.isConnected && conn.canConnect)
-            {
-                yield return conn;
-            }
-        }
     } 
-
-    //true - произошло хотя-бы 1 соединение
-    public bool CheckPuzzle()
-    {
-        bool result = false;
-        foreach(PuzzleConnectionScript conn in GetConnected())
-        {
-            result = true;
-            Connect(conn);
-        }
-        return result;
-    }
-
-    private void Connect(PuzzleConnectionScript conn)
-    {
-        PuzzlePieceScript connPiece = conn.pointToConnet.myPuzzle.currPiece;
-
-        Transform connPieceTransform = conn.pointToConnet.myPuzzle.transform.parent;
-        connPieceTransform.position += transform.position - conn.pointToConnet.myPuzzle.transform.position + offsets[conn.connIndex];
-
-        SinglePuzzleScript[] connectedPuzzles = connPiece.puzzles;
-        foreach (SinglePuzzleScript connPuzzle in connectedPuzzles)
-        {
-            foreach (PuzzleConnectionScript c in connPuzzle.GetConnected())
-            {
-                if(c.pointToConnet.myPuzzle.currPiece == currPiece)
-                {
-                    c.isConnected = true;
-                    c.pointToConnet.isConnected = true;
-                }
-            }
-        }
-        
-        PuzzleRenderOrderScript.instance.RemovePiece(connPiece);
-
-        foreach (SinglePuzzleScript puzzle in connectedPuzzles)
-            puzzle.transform.SetParent(transform.parent);
-        Destroy(connPieceTransform.gameObject);
-        GameManagerScript.instance.OnPieceConnected();
-    }
 }

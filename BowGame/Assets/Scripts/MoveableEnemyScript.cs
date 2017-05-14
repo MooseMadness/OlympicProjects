@@ -6,14 +6,14 @@ public class MoveableEnemyScript : EnemyScript
     public Transform rightTarget;
     public float speed;
 
-    private Vector3 nextTarget;
+    private Transform nextTarget;
     private int rotateTriggerHash;
     private bool isRotating = false;
 
     protected override void Start()
     {
         base.Start();
-        nextTarget = transform.localScale.x == -1 ? rightTarget.position : leftTarget.position;
+        nextTarget = transform.localScale.x == -1 ? rightTarget : leftTarget;
         rotateTriggerHash = Animator.StringToHash("Rotate");
     }
 
@@ -21,11 +21,11 @@ public class MoveableEnemyScript : EnemyScript
     {
         if (!isRotating)
         {
-            Vector3 dirV = nextTarget - transform.position;
+            Vector3 dirV = nextTarget.position - transform.position;
             float deltaSpeed = speed * Time.deltaTime;
             if (dirV.sqrMagnitude < deltaSpeed * deltaSpeed)
             {
-                transform.position = nextTarget;
+                transform.position = nextTarget.position;
                 ChangeTarget();
             }
             else
@@ -47,6 +47,6 @@ public class MoveableEnemyScript : EnemyScript
         Vector3 newScale = transform.localScale;
         newScale.x *= -1;
         transform.localScale = newScale;
-        nextTarget = transform.localScale.x == -1 ? rightTarget.position : leftTarget.position;
+        nextTarget = transform.localScale.x == -1 ? rightTarget : leftTarget;
     }
 }
