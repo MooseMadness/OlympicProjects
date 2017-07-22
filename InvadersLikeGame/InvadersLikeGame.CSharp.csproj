@@ -63,15 +63,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AreaTriggerScript.cs" />
+    <Compile Include="Assets\Scripts\AutoSpawnControllerScript.cs" />
     <Compile Include="Assets\Scripts\CannonScript.cs" />
-    <Compile Include="Assets\Scripts\EnemyFireScript.cs" />
-    <Compile Include="Assets\Scripts\EnemySquadScript.cs" />
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
-    <Compile Include="Assets\Scripts\GameOverAreaScript.cs" />
+    <Compile Include="Assets\Scripts\HealthDrawScript.cs" />
     <Compile Include="Assets\Scripts\HealthScript.cs" />
+    <Compile Include="Assets\Scripts\InputHandlerScript.cs" />
+    <Compile Include="Assets\Scripts\MoveLikeInvadersScript.cs" />
     <Compile Include="Assets\Scripts\ObstacleScript.cs" />
     <Compile Include="Assets\Scripts\ProjectileScript.cs" />
     <Compile Include="Assets\Scripts\SoundMuteScript.cs" />
+    <Compile Include="Assets\Scripts\SpawnScript.cs" />
+    <Compile Include="Assets\Scripts\UIControllerScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

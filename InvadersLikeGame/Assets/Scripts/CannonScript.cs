@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(SpriteRenderer), typeof(AudioSource))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(SpawnScript))]
 public class CannonScript : MonoBehaviour
 {
-    public ProjectileScript projectilePrefab;
-    public Vector3 projectileOffset;
     public float xMax;
     public float xMin;
 
@@ -14,6 +15,7 @@ public class CannonScript : MonoBehaviour
     private SpriteRenderer sRender;
     private Sprite normalSprite;
     private AudioSource audioSource;
+    private SpawnScript bulletSpawnScript;
 
     private void Start()
     {
@@ -22,18 +24,7 @@ public class CannonScript : MonoBehaviour
         sRender = GetComponent<SpriteRenderer>();
         normalSprite = sRender.sprite;
         audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Update()
-    {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 newPos = transform.position;
-        newPos.x = Mathf.Clamp(mouseWorldPos.x, xMin, xMax);
-        transform.position = newPos;
-        if(canFire && Input.GetButton("Fire1"))
-        {
-            Fire();
-        }
+        bulletSpawnScript = GetComponent<SpawnScript>();
     }
 
     private void OnDrawGizmos()
@@ -41,22 +32,28 @@ public class CannonScript : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(new Vector3(xMax, transform.position.y, 0), 0.5f);
         Gizmos.DrawWireSphere(new Vector3(xMin, transform.position.y, 0), 0.5f);
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position + projectileOffset, 0.5f);
     }   
 
-    private void Fire()
+    public void Fire()
     {
-        canFire = false;
-        ProjectileScript projectile = Instantiate(projectilePrefab);
-        projectile.transform.position = transform.position + projectileOffset;
-        animControll.SetTrigger(fireTriggerHash);
-        if(audioSource.enabled)
-            audioSource.PlayOneShot(audioSource.clip);
+        if (canFire)
+        {
+            canFire = false;
+            bulletSpawnScript.Spawn();
+            animControll.SetTrigger(fireTriggerHash);
+            if (audioSource.enabled)
+                audioSource.PlayOneShot(audioSource.clip);
+        }
     }
 
-    public void OnEndFireAnime()
+    public void SetPosition(float x)
+    {
+        Vector2 newPos = transform.position;
+        newPos.x = Mathf.Clamp(x, xMin, xMax);
+        transform.position = newPos;
+    }
+
+    public void OnEndFireAnim()
     {
         canFire = true;
         sRender.sprite = normalSprite;

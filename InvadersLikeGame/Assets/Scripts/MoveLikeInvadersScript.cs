@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemySquadScript : MonoBehaviour
+public class MoveLikeInvadersScript : MonoBehaviour
 {
     public float xSpeed;
     public float ySpeed;
@@ -27,11 +27,11 @@ public class EnemySquadScript : MonoBehaviour
         {
             target.y -= ySpeed;
             transform.position = target;
-            Flip();
+            ChangeTarget();
         }
     }
 
-    private void Flip()
+    private void ChangeTarget()
     {
         target.x = target.x == xMin ? xMax : xMin;
     }

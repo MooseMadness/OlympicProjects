@@ -1,24 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
     public int enemyCount;
-    public Text scoreText;
-    public int score;
     public int playerDamageCost;
 
-    public static GameManagerScript instance;
+    public UIControllerScript uiController;
 
     private static bool isGameEnd = false;
 
     private float timer = 0;
-
-    private void Awake()
-    {
-        instance = this;
-    }
+    [SerializeField]
+    private int score;
 
     private void Update()
     {
@@ -48,7 +42,7 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    public void OnEnemyDie()
+    public void OnEnemyDeath()
     {
         enemyCount--;
         if (enemyCount <= 0)
@@ -64,6 +58,14 @@ public class GameManagerScript : MonoBehaviour
             GameOver();
             return;
         }
-        scoreText.text = "Левки: " + score;
+
+        if (uiController != null)
+            uiController.SetScore(score);
+    }
+
+    public void OnEnterGameOverArea()
+    {
+        score = 0;
+        GameOver();
     }
 }

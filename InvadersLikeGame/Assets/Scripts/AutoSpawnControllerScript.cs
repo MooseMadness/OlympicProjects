@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using URand = UnityEngine.Random;
 
-public class EnemyFireScript : MonoBehaviour
+[RequireComponent(typeof(SpawnScript))]
+public class AutoSpawnControllerScript : MonoBehaviour
 {
-    public ProjectileScript enemyBulletPrefab;
-    public Vector3 enemyBulletOffset;
     public float minSpawnTime;
     public float maxSpawnTime;
 
     private float timer = 0;
     private float currSpawnTime;
+    private SpawnScript spawnScript;
 
     private void Start()
     {
         currSpawnTime = URand.Range(minSpawnTime, maxSpawnTime);
+        spawnScript = GetComponent<SpawnScript>();
     }
 
     private void Update()
@@ -23,14 +24,7 @@ public class EnemyFireScript : MonoBehaviour
         {
             currSpawnTime = URand.Range(minSpawnTime, maxSpawnTime);
             timer = 0;
-            ProjectileScript bullet = Instantiate(enemyBulletPrefab);
-            bullet.transform.position = transform.position + enemyBulletOffset;
+            spawnScript.Spawn();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position + enemyBulletOffset, 0.5f);
     }
 }
