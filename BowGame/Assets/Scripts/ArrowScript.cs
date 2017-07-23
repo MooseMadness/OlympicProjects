@@ -1,29 +1,27 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class ArrowScript : MonoBehaviour
 {
     public int damageAmount;
+    public DestroyAction destroyAction;
 
     public bool isShooting { get; private set; } 
 
     private Rigidbody2D rb;
-    private Animator animController;
     private Collider2D coll;
-    private int deadTriggerHash;
+    private bool isDestroyed = false;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
-        animController = GetComponent<Animator>();
         isShooting = false;
-        deadTriggerHash = Animator.StringToHash("Dead");
     }
 
     private void FixedUpdate()
     {
-        if(isShooting)
+        if(isShooting && rb.velocity != Vector2.zero)
         {
             transform.rotation = Quaternion.LookRotation(Vector3.forward, -Vector3.Cross(Vector3.forward, rb.velocity));
         }
@@ -31,17 +29,23 @@ public class ArrowScript : MonoBehaviour
 
     public void Shoot(Vector3 forceV)
     {
-        rb.isKinematic = false;
-        rb.AddForce(forceV, ForceMode2D.Impulse);
-        isShooting = true;
+        if (!isShooting)
+        {
+            rb.isKinematic = false;
+            rb.AddForce(forceV, ForceMode2D.Impulse);
+            isShooting = true;
+        }
     }
 
     public void Stop()
     {
-        rb.isKinematic = true;
-        rb.velocity = Vector2.zero;
-        isShooting = false;
-        coll.enabled = false;
+        if (isShooting)
+        {
+            rb.isKinematic = true;
+            rb.velocity = Vector2.zero;
+            isShooting = false;
+            coll.enabled = false;
+        }
     }
 
     public Vector2 GetVelocity()
@@ -51,7 +55,18 @@ public class ArrowScript : MonoBehaviour
 
     public void DestroyArrow()
     {
-        Stop();
-        animController.SetTrigger(deadTriggerHash);
+        if (!isDestroyed)
+        {
+            isDestroyed = true;
+            if (destroyAction != null)
+            {
+                Stop();
+                destroyAction.StartDestroy();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

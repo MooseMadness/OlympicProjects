@@ -63,22 +63,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Arrow targets\ArrowTargetScript.cs" />
+    <Compile Include="Assets\Scripts\Arrow targets\ExplosionObjectScript.cs" />
+    <Compile Include="Assets\Scripts\Arrow targets\JoinedObjectScript.cs" />
+    <Compile Include="Assets\Scripts\Arrow targets\PushableObjectScript.cs" />
     <Compile Include="Assets\Scripts\ArrowScript.cs" />
-    <Compile Include="Assets\Scripts\ArrowTargetScript.cs" />
-    <Compile Include="Assets\Scripts\BossScript.cs" />
-    <Compile Include="Assets\Scripts\BoundaryScript.cs" />
-    <Compile Include="Assets\Scripts\EnemyScript.cs" />
-    <Compile Include="Assets\Scripts\ExplosionObjectScript.cs" />
-    <Compile Include="Assets\Scripts\GameMangerScript.cs" />
-    <Compile Include="Assets\Scripts\JoinedObjectScript.cs" />
-    <Compile Include="Assets\Scripts\KozakDragScript.cs" />
-    <Compile Include="Assets\Scripts\MoveableEnemyScript.cs" />
-    <Compile Include="Assets\Scripts\ObstacleScript.cs" />
-    <Compile Include="Assets\Scripts\PushableScript.cs" />
-    <Compile Include="Assets\Scripts\SceneManagerScript.cs" />
+    <Compile Include="Assets\Scripts\Destroy scripts\DestroyAction.cs" />
+    <Compile Include="Assets\Scripts\Destroy scripts\DestroyWithAnimScript.cs" />
+    <Compile Include="Assets\Scripts\Destroy scripts\DestroyWithArrowsScript.cs" />
+    <Compile Include="Assets\Scripts\Destroy scripts\DestroyWithRelativeAnimScript.cs" />
+    <Compile Include="Assets\Scripts\Health managment\DamageOnCollScript.cs" />
+    <Compile Include="Assets\Scripts\Health managment\HealthDrawScript.cs" />
+    <Compile Include="Assets\Scripts\Health managment\HealthScript.cs" />
+    <Compile Include="Assets\Scripts\KozakScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\GameMangerScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\InputHandlerScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\SwedenLvlManagerScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\UIControllerScript.cs" />
+    <Compile Include="Assets\Scripts\Movement\MoveScript.cs" />
+    <Compile Include="Assets\Scripts\Movement\MoveToPointScript.cs" />
+    <Compile Include="Assets\Scripts\Movement\PatrolScript.cs" />
     <Compile Include="Assets\Scripts\SelfDestroyScript.cs" />
-    <Compile Include="Assets\Scripts\SelfFallJOScript.cs" />
-    <Compile Include="Assets\Scripts\WarriorLvlManagerScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
