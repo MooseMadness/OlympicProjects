@@ -63,19 +63,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AreaTriggerScript.cs" />
-    <Compile Include="Assets\Scripts\AutoSpawnControllerScript.cs" />
     <Compile Include="Assets\Scripts\CannonScript.cs" />
-    <Compile Include="Assets\Scripts\GameManagerScript.cs" />
-    <Compile Include="Assets\Scripts\HealthDrawScript.cs" />
-    <Compile Include="Assets\Scripts\HealthScript.cs" />
-    <Compile Include="Assets\Scripts\InputHandlerScript.cs" />
-    <Compile Include="Assets\Scripts\MoveLikeInvadersScript.cs" />
-    <Compile Include="Assets\Scripts\ObstacleScript.cs" />
-    <Compile Include="Assets\Scripts\ProjectileScript.cs" />
-    <Compile Include="Assets\Scripts\SoundMuteScript.cs" />
-    <Compile Include="Assets\Scripts\SpawnScript.cs" />
-    <Compile Include="Assets\Scripts\UIControllerScript.cs" />
+    <Compile Include="Assets\Scripts\Health managment\DamageOnCollScript.cs" />
+    <Compile Include="Assets\Scripts\Health managment\HealthDrawScript.cs" />
+    <Compile Include="Assets\Scripts\Health managment\HealthScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\GameManagerScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\InputHandlerScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\SoundMuteScript.cs" />
+    <Compile Include="Assets\Scripts\Managers and controllers\UIControllerScript.cs" />
+    <Compile Include="Assets\Scripts\Movement\MoveLikeInvadersScript.cs" />
+    <Compile Include="Assets\Scripts\Movement\ProjectileScript.cs" />
+    <Compile Include="Assets\Scripts\Spawning\AutoSpawnControllerScript.cs" />
+    <Compile Include="Assets\Scripts\Spawning\SpawnScript.cs" />
+    <Compile Include="Assets\Scripts\Static triggers\AreaTriggerScript.cs" />
+    <Compile Include="Assets\Scripts\Static triggers\ObstacleScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
